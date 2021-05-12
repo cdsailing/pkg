@@ -3,12 +3,12 @@ package pager
 import "reflect"
 
 type Pager struct {
-	Items []interface{} `json:"items" description:"paging data"`
-	Total int64         `json:"total" description:"total count"`
+	Items []interface{} `json:"data" description:"paging data"`
+	Total int64         `json:"totalCount" description:"total count"`
 	Order string        `json:"order"`
 	Page  int           `json:"page"`
-	Count int           `json:"count"`
-	Size  int           `json:"size"`
+	Count int           `json:"pageCount"`
+	Size  int           `json:"pageSize"`
 }
 
 func ToPager(source interface{}, total int64) *Pager {
