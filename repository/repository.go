@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/cdsailing/pkg/config"
+	"github.com/cdsailing/pkg/repository/mysql"
 	"github.com/cdsailing/pkg/repository/pgsql"
 	"github.com/cdsailing/pkg/repository/sqlite"
 	"gorm.io/gorm"
@@ -19,8 +20,10 @@ var (
 func init() {
 	conf := &config.Config{}
 	config.Init(conf)
-	if strings.ToLower(conf.Db.Type) == "postgre" {
+	if strings.ToLower(conf.Db.Type) == "pgsql" {
 		DbContext = pgsql.Init(conf)
+	} else if strings.ToLower(conf.Db.Type) == "mysql" {
+		DbContext = mysql.Init(conf)
 	} else if strings.ToLower(conf.Db.Type) == "sqlite" {
 		DbContext = sqlite.Init(conf)
 	}
