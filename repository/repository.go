@@ -30,6 +30,7 @@ func init() {
 	if conf.Db.Debug {
 		DbContext.Debug()
 	}
+if DbContext!=nil{
 	DbContext.Logger = logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
@@ -38,4 +39,5 @@ func init() {
 			Colorful:      false,         // 禁用彩色打印
 		},
 	)
+}
 }
