@@ -3,7 +3,7 @@ package pager
 import "reflect"
 
 type Pager struct {
-	Items []interface{} `json:"data" description:"paging data"`
+	Data  []interface{} `json:"data" description:"paging data"`
 	Total int64         `json:"totalCount" description:"total count"`
 	Order string        `json:"order"`
 	Page  int           `json:"page"`
@@ -26,7 +26,7 @@ func ToPager(source interface{}, total int64) *Pager {
 	for _, a := range temp {
 		result = append(result, a)
 	}
-	pager.Items = result
+	pager.Data = result
 	return pager
 
 	return nil
