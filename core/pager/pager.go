@@ -2,17 +2,26 @@ package pager
 
 import "reflect"
 
-type Pager struct {
+type PageResult struct {
 	Data  []interface{} `json:"data" description:"paging data"`
 	Total int64         `json:"totalCount" description:"total count"`
-	Order string        `json:"order"`
 	Page  int           `json:"page"`
 	Count int           `json:"pageCount"`
 	Size  int           `json:"pageSize"`
 }
 
-func ToPager(source interface{}, total int64) *Pager {
-	pager := &Pager{Total: total}
+/**
+分页查询
+*/
+type PageQuery struct {
+	PageSize int
+	Page     int
+	Keyword  string
+	Order    string
+}
+
+func ToPager(source interface{}, total int64, query PageQuery) *PageResult {
+	pager := &PageResult{Total: total}
 	temp := make([]interface{}, 0)
 	switch reflect.TypeOf(source).Kind() {
 	case reflect.Slice, reflect.Array:
@@ -27,6 +36,13 @@ func ToPager(source interface{}, total int64) *Pager {
 		result = append(result, a)
 	}
 	pager.Data = result
+	pager.Page = query.Page
+	pager.Size = query.PageSize
+	if pager.Total%int64(pager.Size) == 0 {
+		pager.Count = int(pager.Total % int64(pager.Size))
+	} else {
+		pager.Count = int(pager.Total%int64(pager.Size)) + 1
+	}
 	return pager
 
 	return nil
