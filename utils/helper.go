@@ -4,6 +4,8 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/cdsailing/pkg/log"
+	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"unsafe"
@@ -31,4 +33,15 @@ func Join(bytes []byte, sep string) string {
 		result = append(result, fmt.Sprintf("%v", item))
 	}
 	return strings.Join(result, sep)
+}
+
+func GetCurrentDirectory() string {
+	//返回绝对路径 filepath.Dir(os.Args[0])去除最后一个元素的路径
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Error(err)
+	}
+
+	//将\替换成/
+	return strings.Replace(dir, "\\", "/", -1)
 }

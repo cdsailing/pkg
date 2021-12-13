@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/cdsailing/pkg/log"
+	"github.com/cdsailing/pkg/utils"
 	"github.com/jinzhu/configor"
 	"os"
 )
@@ -33,7 +34,7 @@ type Config struct {
 
 func init() {
 	var err error
-	BaseDir, _ := os.Getwd()
+	BaseDir := utils.GetCurrentDirectory()
 	path := BaseDir
 	app := os.Getenv("app")
 	if len(app) > 0 {
