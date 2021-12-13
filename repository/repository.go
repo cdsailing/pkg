@@ -3,7 +3,6 @@ package repository
 import (
 	"github.com/cdsailing/pkg/config"
 	"github.com/cdsailing/pkg/repository/mysql"
-	"github.com/cdsailing/pkg/repository/pgsql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"log"
@@ -20,7 +19,8 @@ func init() {
 	conf := &config.Config{}
 	config.Init(conf)
 	if strings.ToLower(conf.Db.Type) == "pgsql" {
-		DbContext = pgsql.Init(conf)
+		println("暂不支持PSQL")
+		//DbContext = pgsql.Init(conf)
 	} else if strings.ToLower(conf.Db.Type) == "mysql" {
 		DbContext = mysql.Init(conf)
 	} else if strings.ToLower(conf.Db.Type) == "sqlite" {
