@@ -48,7 +48,7 @@ func init() {
 
 func Init(instance interface{}) {
 	var err error
-	BaseDir, _ := os.Getwd()
+	BaseDir := utils.GetCurrentDirectory()
 	path := BaseDir
 	app := os.Getenv("app")
 	if len(app) > 0 {
