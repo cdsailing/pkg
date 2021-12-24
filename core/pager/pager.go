@@ -1,6 +1,9 @@
 package pager
 
-import "reflect"
+import (
+	"github.com/cdsailing/pkg/config"
+	"reflect"
+)
 
 type PageResult struct {
 	Data  []interface{} `json:"data" description:"paging data"`
@@ -18,6 +21,19 @@ type PageQuery struct {
 	Page     int
 	Keyword  string
 	Order    string
+}
+
+func (p *PageQuery) GetPager() {
+	if p.PageSize <= 0 {
+		if config.Conf != nil && config.Conf.Server.PageSize > 0 {
+			p.PageSize = config.Conf.Server.PageSize
+		} else {
+			p.PageSize = 20
+		}
+	}
+	if p.Page <= 0 {
+		p.Page = 1
+	}
 }
 
 func ToPager(source interface{}, total int64, query PageQuery) *PageResult {
