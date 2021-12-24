@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"encoding/json"
+	"github.com/cdsailing/pkg/log"
 	"github.com/mitchellh/mapstructure"
 	"net/url"
 )
@@ -19,4 +21,13 @@ func (p *QueryParam) Map(out interface{}) {
 		result[s] = p.Values.Get(s)
 	}
 	Map(result, out)
+}
+
+func (p *QueryParam) MapTo(out interface{}) {
+	_bytes, err := json.Marshal(p)
+	if err != nil {
+		log.Warning("序列化数据失败: %s", err.Error())
+		return
+	}
+	json.Unmarshal(_bytes, out)
 }
