@@ -54,10 +54,10 @@ func ToPager(source interface{}, total int64, query PageQuery) *PageResult {
 	pager.Data = result
 	pager.Page = query.Page
 	pager.Size = query.PageSize
-	if pager.Total%int64(pager.Size) == 0 {
-		pager.Count = int(pager.Total % int64(pager.Size))
+	if pager.Total/int64(pager.Size) == 0 {
+		pager.Count = int(pager.Total / int64(pager.Size))
 	} else {
-		pager.Count = int(pager.Total%int64(pager.Size)) + 1
+		pager.Count = int(pager.Total/int64(pager.Size)) + 1
 	}
 	return pager
 
