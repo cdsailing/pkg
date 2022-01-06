@@ -17,10 +17,10 @@ type PageResult struct {
 分页查询
 */
 type PageQuery struct {
-	PageSize int    `json:"pageSize"`
-	Page     int    `json:"page"`
-	Keyword  string `json:"keyword"`
-	Order    string `json:"order"`
+	PageSize int    `json:"pageSize" form:"pageSize"`
+	Page     int    `json:"page" form:"page"`
+	Keyword  string `json:"keyword" form:"keyword"`
+	Order    string `json:"order" form:"order"`
 }
 
 func (p *PageQuery) GetPager() {
