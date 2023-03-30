@@ -2,6 +2,7 @@ package repository
 
 import (
 	"github.com/cdsailing/pkg/config"
+	"github.com/cdsailing/pkg/repository/dm"
 	"github.com/cdsailing/pkg/repository/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -25,6 +26,8 @@ func init() {
 		DbContext = mysql.Init(conf)
 	} else if strings.ToLower(conf.Db.Type) == "sqlite" {
 		//DbContext = sqlite.Init(conf)
+	} else if strings.ToLower(conf.Db.Type) == "dm" {
+		DbContext = dm.NewDm(conf)
 	}
 	if conf.Db.Debug {
 		DbContext.Debug()
